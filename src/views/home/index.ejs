@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Maträttsgeneratorn</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <header class="header-section">
+    <h1><a href="index.ejs">Maträttsgeneratorn</a></h1>
+    <nav class="nav-section">
+      <a href="#">Mina favoritrecept (WIP)</a>
+      <a href="#">Registrera dig (WIP)</a>
+      <a href="#">Logga in (WIP)</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="recipe-section">
+      <h2>Din framslumpade veckosedel - voilà!</h2>
+        <div class="cards">
+          <!-- Placeholder cards -->
+          <div class="card">Vardagsrätt – Kyckling med spenatpasta och parmesan<p class="source-text">Källa: arla.se</p></div>
+          <div class="card">Vardagsrätt – Kyckling med spenatpasta och parmesan<p class="source-text">Källa: arla.se</p></div>
+          <div class="card">Vardagsrätt – Kyckling med spenatpasta och parmesan<p class="source-text">Källa: arla.se</p></div>
+          <div class="card">Vardagsrätt – Kyckling med spenatpasta och parmesan<p class="source-text">Källa: arla.se</p></div>
+          <div class="card">Vardagsrätt – Kyckling med spenatpasta och parmesan<p class="source-text">Källa: arla.se</p></div>
+          <div class="card">Helgmat – Smörrebröd<p class="source-text">Källa: landkysk.se</p></div>
+          <div class="card">Helgmat – Smörrebröd<p class="source-text">Källa: landkysk.se</p></div>
+        </div>
+    </section>
+
+    <section class="generator-section">
+      <div>
+        <button>Ge mig recepten!</button>
+        <h3>Vardagsrecept</h3>
+        <label>Antal <input type="number" min="0" max="7"/></label>
+      </div>
+      <div>
+        <h3>Helgrecept</h3>
+        <label>Antal <input type="number" min="0" max="7" /></label>
+      </div>
+        <section class="all-categories">
+            <div class="category-protein">
+                <h3>Protein</h3>
+                <label><input type="checkbox" /> Kyckling</label><br/>
+                <label><input type="checkbox" /> Fisk</label><br/>
+                <label><input type="checkbox" /> Fläsk</label><br/>
+                <label><input type="checkbox" /> Nötkött</label>
+            </div>
+            <div class="category-veg">
+                <h3>Veg</h3>
+                <label><input type="checkbox" /> Veg</label>
+            </div>
+        </section>
+    </section>
+  </main>
+  <footer class="footer-section">
+    <p>placeholder for Miki</p>
+  </footer>  
+</body>
+</html>

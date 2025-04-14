@@ -1,0 +1,28 @@
+{
+  "name": "matgeneratorn",
+  "version": "1.0.0",
+  "description": "1DV613 - Project 'Matgeneratorn'",
+  "type": "module",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">20.6.0"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon --inspect --env-file=.env src/server.js",
+    "lint": "npx eslint ./src || exit 0"
+  },
+  "author": "Miki Lamberg",
+  "license": "ISC",
+  "dependencies": {
+    "@lnu/json-js-cycle": "2.0.5",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "helmet": "8.1.0"
+  },
+  "devDependencies": {
+    "@lnu/eslint-config": "1.1.10",
+    "nodemon": "3.0.2"
+  }
+}
