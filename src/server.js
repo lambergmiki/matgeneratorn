@@ -7,10 +7,10 @@
  */
 
 import '@lnu/json-js-cycle'
-import cors from 'cors'
 import express from 'express'
 import helmet from 'helmet'
 import { router } from './router/router.js'
+import { getRecipes } from './scraper_arla.js'
 
 try {
   const app = express()
@@ -19,13 +19,15 @@ try {
   app.set('views', 'src/views')
 
   app.use(helmet())
-  app.use(cors())
   app.use(express.json())
 
   app.use('/', router)
 
   // Built in middleware of Express, 'static' serves static files from 'public' (root) specified here.
   app.use(express.static('public'))
+
+  const firstSevenRecipes = await getRecipes()
+  console.log(firstSevenRecipes) // debugger
 
   const server = app.listen(process.env.PORT, () => {
     console.info(`Server running at http://localhost:${server.address().port}`)
