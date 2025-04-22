@@ -1,16 +1,23 @@
 /* Apply border-box to all elements and pseudo-elements */
 *, *::before, *::after {
     box-sizing: border-box;
-  }  
+  }
+
+  html, body {
+    height: 100%;
+  }
 
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
   }
 
   main {
     display: flex;
+    flex: 1;
   }
 
   .header-section {
@@ -18,7 +25,7 @@ body {
     justify-content: space-between;
     align-items: center;
     background-color: cornsilk;
-    padding: 1rem 2rem;
+    padding: 0.8rem 1.75rem;
     border-bottom: 1px solid #ccc;
   }
   
@@ -63,20 +70,71 @@ body {
   }
 
   .cards {
-    flex: 1;
     display: flex;
     flex-direction: column;
+    flex: 1;
     gap: 1rem;
+    width: 100%;
+    max-width: 600px;
   }
-  
+
   .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     background-color: #f0f0f0;
     padding: 1rem;
+    border-radius: 8px;
+  }
+  
+  .content-text {
+    margin: 0 0 0.5rem 0;
+    font-weight: bold;
+  }
+  
+  .source-text {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0;
+  }
+
+  .save-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .save-button-container {
+    margin-top: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .save-button {
+    padding: 0.4rem 1.25rem;
+    background-color: darkgoldenrod;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .save-button:hover {
+    background-color: goldenrod; /* Visual cue for possible interaction */
+  }
+  
+  .save-button:active {
+    background-color: goldenrod;
+    transform: scale(0.9); /* Visual cue for pressed button */
   }
 
   .footer-section {
     background-color: cornsilk;
     border-top: 1px #ccc;
     display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
     padding: 10px;
   }
