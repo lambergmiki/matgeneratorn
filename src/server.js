@@ -9,8 +9,8 @@
 import '@lnu/json-js-cycle'
 import express from 'express'
 import helmet from 'helmet'
+import logger from 'morgan'
 import { router } from './router/router.js'
-import { getRecipes } from './scraper_arla.js'
 
 try {
   const app = express()
@@ -18,6 +18,7 @@ try {
   app.set('view engine', 'ejs')
   app.set('views', 'src/views')
 
+  app.use(logger('dev'))
   app.use(helmet())
   app.use(express.json())
 
@@ -26,12 +27,8 @@ try {
   // Built in middleware of Express, 'static' serves static files from 'public' (root) specified here.
   app.use(express.static('public'))
 
-  const firstSevenRecipes = await getRecipes()
-  console.log(firstSevenRecipes) // debugger
-
   const server = app.listen(process.env.PORT, () => {
     console.info(`Server running at http://localhost:${server.address().port}`)
-    console.info('Press Ctrl-C to terminate...')
   })
 } catch (err) {
   console.error(err.message, { error: err })
