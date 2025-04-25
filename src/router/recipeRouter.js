@@ -3,8 +3,8 @@ import { recipeController } from '../controllers/RecipeController.js'
 
 export const router = express.Router()
 
-router.get('/', (req, res) => {
-  res.render('recipes/index')
-})
+// placeholder route, not necessarily needed - http://localhost:5005/recipes
+router.get('/', (req, res) => { res.render('recipes/index') })
 
+// the main route to generated recipes, recipes/list, subject to change
 router.post('/', (req, res) => recipeController.scrapeArla(req, res))
