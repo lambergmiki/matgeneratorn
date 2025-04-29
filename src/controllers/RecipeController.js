@@ -11,7 +11,8 @@ export const recipeController = {
    */
   async scrapeArla (req, res) {
     try {
-      const recipes = await getRecipes()
+      const recipes = await getRecipes('tdb:6985', 'tdb:7007')
+      console.log('Sending recipe titles:', recipes.map(r => r.title))
 
       return res.render('recipes/list', { recipes })
     } catch (err) {
