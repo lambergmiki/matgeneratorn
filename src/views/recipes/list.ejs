@@ -21,10 +21,12 @@
       <h2>Din framslumpade veckosedel - voilà!</h2>
       <% if (typeof recipes !== 'undefined') { %>
         <div class="cards">
-          <% recipes.forEach(recipe => { %>
+          <% const dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']; %>
+          <% recipes.forEach((recipe, index) => { %>
             <div class="card">
               <div class="card-content">
                 <p class="content-text"><%= recipe.title %></p>
+                <p><%= dayNames[index] %></p>
                 <p class="source-text"><a href="<%= recipe.url %>" target="_blank">Se recept</a></p>
               </div>
               <div class="save-button-container">
