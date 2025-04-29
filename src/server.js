@@ -15,6 +15,8 @@ import { router } from './router/router.js'
 try {
   const app = express()
 
+  app.set('trust proxy', 1) // Trust the first proxy, Nginx, to pass the real client IP via X-Forwarded-For
+
   app.set('view engine', 'ejs')
   app.set('views', 'src/views')
 
