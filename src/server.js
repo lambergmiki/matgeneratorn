@@ -29,7 +29,8 @@ try {
   // Built in middleware of Express, 'static' serves static files from 'public' (root) specified here.
   app.use(express.static('public'))
 
-  const server = app.listen(process.env.PORT, () => {
+  // include fallback PORT if .env is not included at runtime for Docker container.
+  const server = app.listen(process.env.PORT || 5005, () => {
     console.info(`Server running at http://localhost:${server.address().port}`)
   })
 } catch (err) {
