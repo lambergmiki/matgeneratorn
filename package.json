@@ -9,7 +9,8 @@
   },
   "scripts": {
     "start": "node src/server.js",
-    "dev": "nodemon --inspect --env-file=.env src/server.js",
+    "dev": "nodemon --inspect src/server.js",
+    "docker:dev": "docker compose up --build",
     "lint": "npx eslint ./src || exit 0"
   },
   "author": "Miki Lamberg",

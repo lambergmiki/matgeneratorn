@@ -5,8 +5,9 @@ FROM node:22.7.0
 WORKDIR /app
 
 # Copy package files and install only production dependencies
+# RUN npm install --omit=dev <- use this when going to production
 COPY package*.json ./
-RUN npm install --omit=dev
+RUN npm install
 
 # Copy all source code
 COPY . .

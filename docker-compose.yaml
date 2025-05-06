@@ -1,0 +1,12 @@
+services:
+  matgeneratorn:
+    build: .
+    ports:
+      - "5005:5005"
+    environment:
+      PORT: 5005
+      BASE_URL: "/"
+    restart: unless-stopped
+    volumes:
+      - .:/app
+    command: npx nodemon server.js
