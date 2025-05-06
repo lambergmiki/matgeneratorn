@@ -30,6 +30,7 @@ try {
   app.use(express.static('public'))
 
   // include fallback PORT if .env is not included at runtime for Docker container.
+  // .env is currently not in use
   const server = app.listen(process.env.PORT || 5005, () => {
     console.info(`Server running at http://localhost:${server.address().port}`)
   })
