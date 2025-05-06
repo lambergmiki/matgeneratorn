@@ -33,6 +33,7 @@ try {
   // .env is currently not in use
   const server = app.listen(process.env.PORT || 5005, () => {
     console.info(`Server running at http://localhost:${server.address().port}`)
+    console.log('testing only for docker compose purposes')
   })
 } catch (err) {
   console.error(err.message, { error: err })
