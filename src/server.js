@@ -24,7 +24,7 @@ try {
   app.use(helmet())
   app.use(express.json())
 
-  app.use('/matgeneratorn/', router)
+  app.use('/matgeneratorn', router)
 
   // Built in middleware of Express, 'static' serves static files from 'public' (root) specified here.
   app.use(express.static('public'))
