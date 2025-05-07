@@ -9,4 +9,5 @@ services:
     restart: unless-stopped
     volumes:
       - .:/app  # Sync local files with container
+      - ./public:/app/public  # Sync the 'public' folder with the container for static assets (like CSS, images, etc.)
     command: sh -c "npm install && npx nodemon src/server.js" # Run npm install to install dependencies and then start the app with nodemon (watching for changes)
