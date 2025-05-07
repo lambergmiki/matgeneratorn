@@ -1,12 +1,12 @@
 services:
   matgeneratorn:
-    build: .
+    build: . # Build the image from the current directory
     ports:
-      - 5005:5005
+      - 5005:5005 # Map port 5005 on CS Cloud machine to port 5005 inside the container, so localhost:5005 leads to cscloud8-57.lnu.se/matgeneratorn
     environment:
-      PORT: 5005
-      BASE_URL: /matgeneratorn/
+      PORT: 5005 # Set environment variable for the port the app will run on inside the container
+      BASE_URL: /matgeneratorn/ # Set the base URL path that the app will use for routing - cscloud8-57.lnu.se/matgeneratorn
     restart: unless-stopped
     volumes:
-      - .:/app
-    command: npx nodemon server.js
+      - .:/app  # Sync local files with container
+    command: sh -c "npm install && npx nodemon src/server.js" # Run npm install to install dependencies and then start the app with nodemon (watching for changes)
