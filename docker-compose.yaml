@@ -3,11 +3,9 @@ services:
     build: .
     ports:
       - "5005:5005"
-    expose:
-      - "5005"
     environment:
-      - PORT=5005
-      - BASE_URL=/matgeneratorn/
+      - PORT: 5005
+      - BASE_URL: /matgeneratorn/
     restart: unless-stopped
     volumes:
       - .:/app
