@@ -5,7 +5,7 @@ services:
       - "5005:5005"
     environment:
       PORT: 5005
-      BASE_URL: "/"
+      BASE_URL: "/matgeneratorn"
     restart: unless-stopped
     volumes:
       - .:/app
