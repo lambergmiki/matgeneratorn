@@ -1,24 +1,4 @@
-<!DOCTYPE html>
-<html lang="sv">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Maträttsgeneratorn</title>
-  <base href="<%= baseURL %>/" />
-  <link rel="stylesheet" href="css/styles.css" />
-</head>
-<body>
-  <header class="header-section">
-    <h1><a href="<%= baseURL %>/">Maträttsgeneratorn</a></h1>
-    <nav class="nav-section">
-      <a href="#">Mina favoritrecept (WIP)</a>
-      <a href="#">Registrera dig (WIP)</a>
-      <a href="#">Logga in (WIP)</a>
-    </nav>
-  </header>
-
-  <main>
-    <section class="recipe-section">
+<section class="recipe-section">
       <h2>Din framslumpade veckosedel - voilà!</h2>
       <% if (typeof recipes !== 'undefined') { %>
         <div class="cards">
@@ -38,8 +18,8 @@
           <div class="card">
             <p>placeholder for error message</p>
           </div>
-      <% } %>
-    </section>
+        <% } %>
+</section>
 
     <section class="generator-section">
       <div>
@@ -67,9 +47,3 @@
             </div>
         </section>
     </section>
-  </main>
-  <footer class="footer-section">
-    <p>placeholder for Miki</p>
-  </footer>
-</body>
-</html>

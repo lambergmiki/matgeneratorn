@@ -8,6 +8,7 @@
 
 import '@lnu/json-js-cycle'
 import express from 'express'
+import expressLayouts from 'express-ejs-layouts'
 import helmet from 'helmet'
 import logger from 'morgan'
 import { dirname, join } from 'node:path'
@@ -25,7 +26,11 @@ try {
   app.set('trust proxy', 1) // Trust the first proxy, Nginx, to pass the real client IP via X-Forwarded-For
 
   app.set('view engine', 'ejs')
-  app.set('views', 'src/views')
+  app.set('views', join(directoryFullName, 'views'))
+  app.set('layout', join(directoryFullName, 'views', 'layouts', 'default'))
+  app.set('layout extractScripts', true)
+  app.set('layout extractStyles', true)
+  app.use(expressLayouts)
 
   app.use(logger('dev'))
   app.use(helmet())
