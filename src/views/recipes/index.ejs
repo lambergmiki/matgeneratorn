@@ -1,7 +1,51 @@
+<main>
+  <section class="recipe-section">
+    <h2>Din framslumpade veckosedel - voilà!</h2>
+    <% if (typeof recipes !== 'undefined') { %>
+      <div class="cards">
+        <% recipes.forEach(recipe => { %>
+          <div class="card">
+            <div class="card-content">
+              <p class="content-text"><%= recipe.title %></p>
+              <p class="source-text"><a href="<%= recipe.url %>" target="_blank">Se recept</a></p>
+            </div>
+            <div class="save-button-container">
+              <button class="save-button">Spara</button>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+      <% } else { %>
+        <div class="error-placeholder">
+        </div>
+    <% } %>
+  </section>
 
-<body>
-<p>placeholder text Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, et aliquam? Qui nesciunt labore quas exercitationem voluptas sint maxime neque dolorem. Ipsum eum id tenetur iusto, provident incidunt! Nemo, fuga?</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus, totam? Eum, omnis harum porro fuga, aut id quos vero, quaerat unde commodi voluptatum illum nihil autem ad. Minima, officia quam!
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis voluptate eveniet quia inventore distinctio possimus provident, laborum nisi dignissimos, deleniti dolores velit quam magni corrupti eaque eligendi, voluptatibus itaque non.
-</p>
-</body>
+  <section class="generator-section">
+    <div>
+      <p>Dessa features är ännu inte implementerade. Soon™.</p>
+      <form action="recipes" method="post">
+        <button class="recipe-button">Ge mig recepten!</button>
+      </form>
+      <h3>Vardagsrecept</h3>
+      <label>Antal <input type="number" min="0" max="7"/></label>
+    </div>
+    <div>
+      <h3>Helgrecept</h3>
+      <label>Antal <input type="number" min="0" max="7" /></label>
+    </div>
+      <section class="all-categories">
+          <div class="category-protein">
+              <h3>Protein</h3>
+              <label><input type="checkbox" /> Kyckling</label><br/>
+              <label><input type="checkbox" /> Fisk</label><br/>
+              <label><input type="checkbox" /> Fläsk</label><br/>
+              <label><input type="checkbox" /> Nöt</label>
+          </div>
+          <div class="category-veg">
+              <h3>Veg</h3>
+              <label><input type="checkbox" /> Veg</label>
+          </div>
+      </section>
+  </section>
+</main>
