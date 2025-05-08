@@ -26,8 +26,8 @@ try {
 
   app.use('/matgeneratorn', router)
 
-  // Built in middleware of Express, 'static' serves static files from 'public' (root) specified here.
-  app.use(express.static('public'))
+  // Serve static files (e.g., CSS, images, JS) under the /matgeneratorn path
+  app.use('/matgeneratorn', express.static('public'))
 
   // include fallback PORT if .env is not included at runtime for Docker container.
   // .env is currently not in use
