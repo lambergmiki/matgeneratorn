@@ -10,10 +10,17 @@ import '@lnu/json-js-cycle'
 import express from 'express'
 import helmet from 'helmet'
 import logger from 'morgan'
+import path from 'path' // 'path' module handles file paths correctly
+import { fileURLToPath } from 'node:url'
 import { router } from './router/router.js'
 
 try {
   const app = express()
+
+  // Determine the absolute path to the 'public' folder dynamically.
+  // We use 'path.join' and '__dirname' to ensure the correct path is resolved regardless of the environment.
+  const directoryFullName = path.dirname(fileURLToPath(import.meta.url)) // Get the directory of this file
+  const publicPath = path.join(directoryFullName, 'public') // Resolve the full path to the 'public' folder
 
   app.set('trust proxy', 1) // Trust the first proxy, Nginx, to pass the real client IP via X-Forwarded-For
 
@@ -26,8 +33,9 @@ try {
 
   app.use('/matgeneratorn', router)
 
-  // Serve static files (e.g., CSS, images, JS) under the /matgeneratorn path
-  app.use('/matgeneratorn', express.static('public'))
+  // Serve static files such as CSS, images, and JavaScript.
+  // The '/matgeneratorn' path will be used for serving static content (like CSS files) from the 'public' folder.
+  app.use('/matgeneratorn', express.static(publicPath))
 
   // include fallback PORT if .env is not included at runtime for Docker container.
   // .env is currently not in use
