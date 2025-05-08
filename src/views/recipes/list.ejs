@@ -1,25 +1,40 @@
 <main>
     <section class="recipe-section">
-      <h2>Din framslumpade veckosedel - voilà!</h2>
-      <% if (typeof recipes !== 'undefined') { %>
-        <div class="cards">
-          <% recipes.forEach(recipe => { %>
-            <div class="card">
-              <div class="card-content">
-                <p class="content-text"><%= recipe.title %></p>
-                <p class="source-text"><a href="<%= recipe.url %>" target="_blank">Se recept</a></p>
-              </div>
-              <div class="save-button-container">
-                <button class="save-button">Spara</button>
-              </div>
-            </div>
-          <% }) %>
+      <h2>Din framslumpade veckosedel – voilà!</h2>
+
+      <div class="column day-column">
+          <div class="card">Mån</div>
+          <div class="card">Tis</div>
+          <div class="card">Ons</div>
+          <div class="card">Tor</div>
+          <div class="card">Fre</div>
+          <div class="card">Lör</div>
+          <div class="card">Sön</div>
         </div>
-        <% } else { %>
-          <div class="error-placeholder">
-          </div>
-      <% } %>
+
+        <div class="column recipe-column">
+            <% if (typeof recipes !== 'undefined') { %>
+              <% recipes.forEach((recipe, index) => { %>
+                <div class="card">
+                  <div class="card-content">
+                    <p class="card-title"><%= recipe.title %></p>
+                    <p class="card-source">
+                      <a href="<%= recipe.url %>" target="_blank">Se recept</a>
+                    </p>
+                  </div>
+                  <div class="save-button-container">
+                    <button class="save-button">Spara</button>
+                  </div>
+                </div>
+              <% }) %>
+            <% } else { %>
+              <div class="placeholder-for-error-page">
+                <p>placeholder-for-error-page</p>
+              </div>
+            <% } %>
+        </div>
     </section>
+    
 
     <section class="generator-section">
       <div>
@@ -49,4 +64,5 @@
             </div>
         </section>
     </section>
+
   </main>

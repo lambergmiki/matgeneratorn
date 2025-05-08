@@ -6,6 +6,7 @@ const BASE_URL = 'https://arla.se'
 const API_ENDPOINT = `${BASE_URL}/cvi/facet/api/sv/recipes`
 
 const step = 20 // the value of which skip parameter is incremented
+// or use "totalCount" instead which is their own recipesTotal TODO
 const recipesTotal = 768 // max amount of pages for weekday category
 const maxSkip = Math.floor(recipesTotal / step) * step // 760
 
@@ -31,8 +32,8 @@ function getRandomSkip () {
  * First implementation of the scraper function,
  * this one handles scraping of arla.se.
  *
- * @param {string} tag1 - the category of which to scrape from, i.e. "weekday-recipes = 6985".
- * @param {string} tag2 - the category of which to scrape from, i.e. "weekday-recipes = 6985".
+ * @param {string} tag1 - the category of which to scrape from, i.e. "weekday-recipes = 7007".
+ * @param {string} tag2 - the category of which to scrape from, i.e. "weekend-recipes = 6985".
  * @returns {Array} searchResult - the recipes after filter has been applied.
  */
 export async function getRecipes (tag1, tag2) {
@@ -53,22 +54,25 @@ export async function getRecipes (tag1, tag2) {
       axios.get(API_ENDPOINT, { params: { skip: currentSkip, tags: tag2 } })
     ])
 
+    // Find tag for vegetarian etc. TODO
+
     /**
      * Defensive assignment of `items` - first, by optional chaining, check that `data`,
      * `gridCards` and `items` all exist in the expected structure. If they do, and `items`
-     * is an array, return it. If not, due to API changes or malfunction, return an empty array as fallback.
+     * is an array, return it, filtered and sliced to fit the frontend.
+     * If not, due to API changes or malfunction, return an empty array as fallback.
      */
-    const weekdayRecipes = Array.isArray(res1.data?.gridCards?.items) ? res1.data.gridCards.items : []
-    const weekendRecipes = Array.isArray(res2.data?.gridCards?.items) ? res2.data.gridCards.items : []
+    const weekdayRecipes = Array.isArray(res1.data?.gridCards?.items)
+      ? res1.data.gridCards.items.filter(item => item.type === 'recipe').slice(0, 5)
+      : []
+    const weekendRecipes = Array.isArray(res2.data?.gridCards?.items)
+      ? res2.data.gridCards.items.filter(item => item.type === 'recipe').slice(0, 2)
+      : []
 
-    const combinedRecipes = [...weekdayRecipes, ...weekendRecipes]
-    const recipes = combinedRecipes
-      .filter(item => item.type === 'recipe')
-      .slice(0, 7)
-      .map(({ title, url }) => ({
-        title,
-        url: BASE_URL + url.trim()
-      }))
+    const recipes = [...weekdayRecipes, ...weekendRecipes].map(({ title, url }) => ({
+      title,
+      url: BASE_URL + url.trim()
+    }))
 
     return recipes
   } catch (err) {
