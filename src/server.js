@@ -16,8 +16,7 @@ import { fileURLToPath } from 'node:url'
 import { router } from './router/router.js'
 
 // Set the base URL to use for all relative URLs in a document.
-const baseURL = process.env.BASE_URL || '/'
-export { baseURL }
+export const baseURL = process.env.BASE_URL || '/'
 
 try {
   const app = express()
