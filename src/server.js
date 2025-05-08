@@ -35,7 +35,7 @@ try {
 
   // Serve static files such as CSS, images, and JavaScript.
   // The '/matgeneratorn' path will be used for serving static content (like CSS files) from the 'public' folder.
-  app.use(baseURL, express.static(join(directoryFullName), '..', 'public'))
+  app.use(baseURL, express.static(join(directoryFullName, '..', 'public')))
 
   // include fallback PORT if .env is not included at runtime for Docker container.
   // .env is currently not in use
