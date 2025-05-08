@@ -31,10 +31,8 @@ function getRandomSkip () {
  * First implementation of the scraper function,
  * this one handles scraping of arla.se.
  *
- * @param {number} skip - the step value of where in the array of recipes scraping happens.
- * @param {string} tags - the category of which to scrape from, i.e. "weekday-recipes = 6985".
- * @param tag1
- * @param tag2
+ * @param {string} tag1 - the category of which to scrape from, i.e. "weekday-recipes = 6985".
+ * @param {string} tag2 - the category of which to scrape from, i.e. "weekday-recipes = 6985".
  * @returns {Array} searchResult - the recipes after filter has been applied.
  */
 export async function getRecipes (tag1, tag2) {
