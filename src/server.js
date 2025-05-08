@@ -37,7 +37,7 @@ try {
   app.use(express.json())
 
   // Pass base URL to views (middleware).
-  app.use((res, next) => {
+  app.use((req, res, next) => {
     res.locals.baseURL = baseURL
     next()
   })
