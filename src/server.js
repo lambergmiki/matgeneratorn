@@ -15,13 +15,15 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { router } from './router/router.js'
 
+// Set the base URL to use for all relative URLs in a document.
+const baseURL = process.env.BASE_URL || '/'
+export { baseURL }
+
 try {
   const app = express()
 
   const directoryFullName = dirname(fileURLToPath(import.meta.url)) // Get the directory of this file
-
-  // Set the base URL to use for all relative URLs in a document.
-  const baseURL = process.env.BASE_URL || '/'
+  console.log(directoryFullName)
 
   app.set('trust proxy', 1) // Trust the first proxy, Nginx, to pass the real client IP via X-Forwarded-For
 
