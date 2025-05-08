@@ -3,7 +3,7 @@
  * Lightweight server.js.
  * @module src/server
  * @author Miki Lamberg
- * @version 0.1
+ * @version 0.2
  */
 
 import '@lnu/json-js-cycle'
