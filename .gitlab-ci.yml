@@ -66,5 +66,5 @@ deploy:
   before_script: *before_script_ssh_setup
   script:
     - echo "Deploying to production..."
-    - ssh ubuntu@$PRODUCTION_HOST "cd ~1dv613/matgeneratorn && git pull origin main"
-    - ssh ubuntu@$PRODUCTION_HOST "cd ~1dv613/matgeneratorn && docker compose -f docker-compose.yaml --build -d"
+    - ssh ubuntu@$PRODUCTION_HOST "cd ~/1dv613/matgeneratorn && git pull origin main"
+    - ssh ubuntu@$PRODUCTION_HOST "cd ~/1dv613/matgeneratorn && docker compose -f docker-compose.yaml --build -d"
