@@ -31,7 +31,13 @@ try {
   app.use(helmet())
   app.use(express.json())
 
-  app.use('/matgeneratorn', router)
+  // Pass base URL to views (middleware).
+  app.use((res, next) => {
+    res.locals.baseURL = baseURL
+    next()
+  })
+
+  app.use(baseURL, router)
 
   // Serve static files such as CSS, images, and JavaScript.
   // The '/matgeneratorn' path will be used for serving static content (like CSS files) from the 'public' folder.
