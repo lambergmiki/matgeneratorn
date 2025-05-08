@@ -48,8 +48,10 @@ unit-test-job:
 # Job to lint the code in the test stage, can run in parallel with unit-test-job.
 lint-test-job:
   stage: test
+  image: node:20 # necessary for having access to node + npm
   script:
-    - echo "Running lint...""
+    - echo "Running lint..."
+    - npm ci # install dependencies
     - npm run lint
     - echo "Lint passed!"
 
