@@ -15,14 +15,17 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { router } from './router/router.js'
 
-// Set the base URL to use for all relative URLs in a document.
-export const baseURL = process.env.BASE_URL || '/'
-
 try {
+  console.log('BASE_URL from .env: ', process.env.BASE_URL) // Debugging the environment variable
+
   const app = express()
 
   const directoryFullName = dirname(fileURLToPath(import.meta.url)) // Get the directory of this file
-  console.log(directoryFullName)
+  console.log('directoryFullName: ', directoryFullName)
+
+  // Set the base URL to use for all relative URLs in a document.
+  const baseURL = process.env.BASE_URL || '/'
+  console.log('baseURL: ', baseURL)
 
   app.set('trust proxy', 1) // Trust the first proxy, Nginx, to pass the real client IP via X-Forwarded-For
 
@@ -53,7 +56,6 @@ try {
   // .env is currently not in use
   const server = app.listen(process.env.PORT || 5005, () => {
     console.info(`Server running at http://localhost:${server.address().port}`)
-    console.log('testing only for docker compose purposes')
   })
 } catch (err) {
   console.error(err.message, { error: err })
