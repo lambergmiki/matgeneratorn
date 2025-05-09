@@ -52,6 +52,9 @@ deploy:
   environment:
     name: production
     url: https://$PRODUCTION_HOST
+  variables:
+    REMOTE_HOST: $PRODUCTION_HOST
+    DOCKER_HOST: ssh://ubuntu@$REMOTE_HOST
   before_script: *before_script_ssh_setup
   script:
     - echo "Deploying to production..."
