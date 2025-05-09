@@ -10,6 +10,16 @@ const step = 20 // the value of which skip parameter is incremented
 // or use "totalCount" instead which is their own recipesTotal TODO
 const recipesTotal = 768 // max amount of pages for weekday category
 const maxSkip = Math.floor(recipesTotal / step) * step // 760
+const foodCategories = [
+  { weekday: 'tdb:7007' },
+  { weekend: 'tdb:6985' },
+  { vegetarian: 'tdb:6517' },
+  { dessert: 'tdb:7013' },
+  { beef: 'tdb:6600' },
+  { chicken: 'tdb:6547' },
+  { pork: 'tdb:6594' },
+  { fish: 'tdb:6549' }
+]
 
 // Utility
 
@@ -56,8 +66,6 @@ export async function getRecipes (tag1, tag2) {
       axios.get(API_ENDPOINT, { params: { skip: currentSkip, tags: tag1 } }),
       axios.get(API_ENDPOINT, { params: { skip: currentSkip, tags: tag2 } })
     ])
-
-    // Find tag for vegetarian etc. TODO
 
     /**
      * Defensive assignment of `items` - first, by optional chaining, check that `data`,
