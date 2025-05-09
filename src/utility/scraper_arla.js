@@ -4,6 +4,7 @@ import axios from 'axios'
 
 const BASE_URL = 'https://arla.se'
 const API_ENDPOINT = `${BASE_URL}/cvi/facet/api/sv/recipes`
+const API_ENABLED = true // debugger flag, used for testing error handling on bad API calls
 
 const step = 20 // the value of which skip parameter is incremented
 // or use "totalCount" instead which is their own recipesTotal TODO
@@ -38,6 +39,8 @@ function getRandomSkip () {
  */
 export async function getRecipes (tag1, tag2) {
   try {
+    if (!API_ENABLED) throw new Error('API disabled (simulated failure)')
+
     // If skip value is null or the amount of recipes generated exceed 20,
     // get a new skip value and reset counter.
     if (currentSkip === null || recipesGenerated + 7 > step) {
@@ -76,7 +79,7 @@ export async function getRecipes (tag1, tag2) {
 
     return recipes
   } catch (err) {
-    console.error('getRecipes error:', err)
+    console.error(err)
     return []
   }
 }

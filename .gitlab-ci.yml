@@ -37,14 +37,6 @@ build-job:
     - sleep 2 # Simulate compilation time.
     - echo "Compile complete."
 
-# Job to run unit tests in the test stage.
-unit-test-job:
-  stage: test # Runs after the build stage is successful.
-  script:
-    - echo "Running unit tests... This will take about 60 seconds."
-    - sleep 2 # Simulate test time.
-    - echo "Code coverage is 90%"
-
 # Job to lint the code in the test stage, can run in parallel with unit-test-job.
 lint-test-job:
   stage: test
@@ -59,10 +51,7 @@ deploy:
   stage: deploy
   environment:
     name: production
-    url: https://$PRODUCTION_HOST # why, what is this?
-  variables:
-    REMOTE_HOST: $PRODUCTION_HOST
-    DOCKER_HOST: ssh://ubuntu@$REMOTE_HOST
+    url: https://$PRODUCTION_HOST
   before_script: *before_script_ssh_setup
   script:
     - echo "Deploying to production..."

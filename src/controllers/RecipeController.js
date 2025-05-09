@@ -12,12 +12,17 @@ export const recipeController = {
   async scrapeArla (req, res) {
     try {
       const recipes = await getRecipes('tdb:7007', 'tdb:6985')
+
+      if (recipes.length === 0) {
+        throw new Error('No recipes generated.')
+      }
+
       console.log('Sending recipe titles:', recipes.map(r => r.title)) // debugger
 
       return res.render('recipes/list', { recipes })
     } catch (err) {
       console.error(err)
-      return res.status(500).render('error', { message: 'Scrape failed in backend, function scrapeArla' })
+      return res.status(500).json({ message: 'API seems to be disabled, contact application manager.' })
     }
   }
 }
