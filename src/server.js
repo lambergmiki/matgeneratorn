@@ -36,6 +36,16 @@ try {
   app.set('layout extractStyles', true)
   app.use(expressLayouts)
 
+  /**
+   * Middleware to parse URL-encoded bodies (from HTML form submissions, e.g., recipes/index.ejs).
+   *
+   * Using `extended: true` enables parsing of rich objects and arrays,
+   * which is necessary because users can select multiple checkboxes for tags.
+   * This ensures that fields like `tag` with multiple selections are parsed as arrays
+   * (e.g., req.body.tag = ['tdb:6547', 'tdb:6549']).
+   */
+  app.use(express.urlencoded({ extended: true }))
+
   app.use(logger('dev'))
   app.use(helmet())
   app.use(express.json())

@@ -37,32 +37,32 @@
     
 
     <section class="generator-section">
-      <div>
-        
-        <form action="recipes" method="post">
-          <button class="recipe-button">Ge mig recepten!</button>
-        </form>
-        <p>Dessa features är ännu inte implementerade. Soon™.</p>
-        <h3>Vardagsrecept</h3>
-        <label>Antal <input type="number" min="0" max="7"/></label>
-      </div>
-      <div>
-        <h3>Helgrecept</h3>
-        <label>Antal <input type="number" min="0" max="7" /></label>
-      </div>
-        <section class="all-categories">
-            <div class="category-protein">
-                <h3>Protein</h3>
-                <label><input type="checkbox" /> Kyckling</label><br/>
-                <label><input type="checkbox" /> Fisk</label><br/>
-                <label><input type="checkbox" /> Fläsk</label><br/>
-                <label><input type="checkbox" /> Nöt</label>
-            </div>
-            <div class="category-veg">
-                <h3>Veg</h3>
-                <label><input type="checkbox" /> Veg</label>
-            </div>
-        </section>
+      
+      <form action="recipes" method="post">
+        <button class="recipe-button">Ge mig recepten!</button>
+      
+
+      <h3>Vardagsrecept</h3>
+      <label>Antal <input type="number" name="weekday" min="0" max="7"/></label>
+
+
+      <h3>Helgrecept</h3>
+      <label>Antal <input type="number" name="weekend" min="0" max="7" /></label>
+
+      <section class="all-categories">
+          <div class="category-protein">
+              <h3>Protein</h3>
+              <label><input type="checkbox" name="tag" value="tdb:6547" /> Kyckling</label><br/>
+              <label><input type="checkbox" name="tag" value="tdb:6549" /> Fisk</label><br/>
+              <label><input type="checkbox" name="tag" value="tdb:6594" /> Fläsk</label><br/>
+              <label><input type="checkbox" name="tag" value="tdb:6600" /> Nöt</label>
+          </div>
+          <div class="category-veg">
+              <h3>Veg</h3>
+              <label><input type="checkbox" name="tag" value="tdb:6517" /> Veg</label>
+          </div>
+      </section>
+      </form>
     </section>
 
   </main>
