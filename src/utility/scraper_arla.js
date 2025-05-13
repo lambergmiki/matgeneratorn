@@ -30,8 +30,11 @@ function getRandomSkip () {
 }
 
 /**
- * First implementation of the scraper function,
- * this one handles scraping of arla.se.
+ * This version of getRecipes() can handle category searches such as
+ * chicken, fish, vegeterian etc. But fails when in cases when the skip value
+ * exceeds the totalCount of recipes in that specific search query. This is to be adressed
+ * in another, experimental branch, in which case this one is to be deleted.
+ * If the experimental branch does not work as intended, I will return to this one to fix this issue.
  *
  * @param {string} tag1 - default category #1, weekday-tag.
  * @param {string} tag2 - default category #2, weekend-tag.
@@ -58,16 +61,16 @@ export async function getRecipes (tag1, tag2, tag3) {
     const weekendTags = tag3 ? [tag2, tag3] : [tag2]
 
     /**
+     * Builds the API URL which is to be used for the actual call.
      *
-     * @param tagsArray
+     * @param {Array} tagsArray - an array of tags to be used in the construction of the API.
+     * @returns {URL} url - the API.
      */
     const buildUrl = (tagsArray) => {
       const url = `${API_ENDPOINT}?skip=${currentSkip}&tags=${tagsArray.join('&tags=')}`
       console.log('built url:', url)
       return url
     }
-
-    console.log(weekendTags, weekdayTags)
 
     const [resWeekday, resWeekend] = await Promise.all([
       axios.get(buildUrl(weekdayTags)),
