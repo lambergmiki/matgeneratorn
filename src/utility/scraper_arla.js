@@ -1,4 +1,7 @@
 import axios from 'axios'
+import { shuffle } from '../utility/shuffle.js'
+import { removeDuplicates } from './removeDuplicates.js'
+import { pickRandom } from './pickRandom.js'
 
 // CONFIG, SUBJECT TO CHANGE WITH ADDITIONAL FEATURES
 
@@ -6,96 +9,48 @@ const BASE_URL = 'https://arla.se'
 const API_ENDPOINT = `${BASE_URL}/cvi/facet/api/sv/recipes`
 const API_ENABLED = true // debugger flag, used for testing error handling on bad API calls
 
-const step = 20 // the value of which skip parameter is incremented
-// or use "totalCount" instead which is their own recipesTotal TODO
-const recipesTotal = 768 // max amount of pages for weekday category
-const maxSkip = Math.floor(recipesTotal / step) * step // 760
-
-// Utility
-
-let recipesGenerated = 0
-let currentSkip = null
-
 /**
- * Generate a random index value from 0 to 38 (idx),
- * then multiply by 20 (step) to get skip value between 20 and 760,
- * matching the total amount of recipes, 768.
- *
- * @returns {number} The skip value to be inserted into the API_ENDPOINT.
- */
-function getRandomSkip () {
-  const maxIndex = maxSkip / step // 38
-  const idx = Math.floor(Math.random() * (maxIndex + 1))
-  return idx * step // 0,20,40…760
-}
-
-/**
- * This version of getRecipes() can handle category searches such as
- * chicken, fish, vegeterian etc. But fails when in cases when the skip value
- * exceeds the totalCount of recipes in that specific search query. This is to be adressed
- * in another, experimental branch, in which case this one is to be deleted.
- * If the experimental branch does not work as intended, I will return to this one to fix this issue.
+ * First version of experimental, multi-category getRecipes().
  *
  * @param {string} tag1 - default category #1, weekday-tag.
  * @param {string} tag2 - default category #2, weekend-tag.
- * @param {string} tag3 - the category of food of which to apply to the search, i.e. vegetarian.
+ * @param {string} tag3 - optional extra filter-tag (string or array of strings, i.e. "chicken", "vegetarian" etc.)
  * @returns {Array} searchResult - the recipes after filter has been applied.
  */
 export async function getRecipes (tag1, tag2, tag3) {
   try {
     if (!API_ENABLED) throw new Error('API disabled (simulated failure)')
 
-    // If skip value is null or the amount of recipes generated exceed 20,
-    // get a new skip value and reset counter.
-    if (currentSkip === null || recipesGenerated + 7 > step) {
-      currentSkip = getRandomSkip()
-      recipesGenerated = 0
-      console.log('New skip value selected:', currentSkip)
-    }
+    // if there are categories of food selected (tag3), add it or them to the weekday/weekend tags array.
+    const weekdayTags = [tag1].concat(tag3 || [])
+    const weekendTags = [tag2].concat(tag3 || [])
 
-    // 7 recipes are to be generated from this API call
-    recipesGenerated += 7
-
-    // if there is a category of food selected, add it as a tag to the API call with tag1/tag2.
-    const weekdayTags = tag3 ? [tag1, tag3] : [tag1]
-    const weekendTags = tag3 ? [tag2, tag3] : [tag2]
-
-    /**
-     * Builds the API URL which is to be used for the actual call.
-     *
-     * @param {Array} tagsArray - an array of tags to be used in the construction of the API.
-     * @returns {URL} url - the API.
-     */
-    const buildUrl = (tagsArray) => {
-      const url = `${API_ENDPOINT}?skip=${currentSkip}&tags=${tagsArray.join('&tags=')}`
-      console.log('built url:', url)
-      return url
-    }
-
-    const [resWeekday, resWeekend] = await Promise.all([
-      axios.get(buildUrl(weekdayTags)),
-      axios.get(buildUrl(weekendTags))
+    // Fire the two calls in parallel
+    const [resW, resE] = await Promise.all([
+      axios.get(API_ENDPOINT, { params: { tags: weekdayTags } }),
+      axios.get(API_ENDPOINT, { params: { tags: weekendTags } })
     ])
 
-    /**
-     * Defensive assignment of `items` - first, by optional chaining, check that `data`,
-     * `gridCards` and `items` all exist in the expected structure. If they do, and `items`
-     * is an array, return it, filtered and sliced to fit the frontend.
-     * If not, due to API changes or malfunction, return an empty array as fallback.
-     */
-    const weekdayRecipes = Array.isArray(resWeekday.data?.gridCards?.items)
-      ? resWeekday.data.gridCards.items.filter(item => item.type === 'recipe').slice(0, 5)
-      : []
-    const weekendRecipes = Array.isArray(resWeekend.data?.gridCards?.items)
-      ? resWeekend.data.gridCards.items.filter(item => item.type === 'recipe').slice(0, 2)
-      : []
+    // Extract & shuffle the pools
+    const poolW = (resW.data?.gridCards?.items || [])
+      .filter(i => i.type === 'recipe')
+    const poolE = (resE.data?.gridCards?.items || [])
+      .filter(i => i.type === 'recipe')
 
-    const recipes = [...weekdayRecipes, ...weekendRecipes].map(({ title, url }) => ({
+    const weekShuffled = shuffle(poolW)
+    const endShuffled = shuffle(poolE)
+
+    // Pick 5 + 2
+    const weekdayRecipes = weekShuffled.slice(0, 5)
+    const weekendRecipes = endShuffled.slice(0, 2)
+
+    return [
+      ...weekdayRecipes,
+      ...weekendRecipes
+    ].map(({ title, url }) => ({
       title,
       url: BASE_URL + url.trim()
     }))
-
-    return recipes
   } catch (err) {
     console.error(err)
     return []
