@@ -11,7 +11,8 @@
     "start": "node src/server.js",
     "dev": "nodemon --inspect src/server.js",
     "docker:dev": "docker compose up --build",
-    "lint": "npx eslint ./src || exit 0"
+    "lint": "npx eslint ./src || exit 0",
+    "test": "jest"
   },
   "author": "Miki Lamberg",
   "license": "ISC",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@lnu/eslint-config": "1.1.10",
+    "jest": "^29.7.0",
     "morgan": "^1.10.0",
     "nodemon": "3.0.2"
   }
