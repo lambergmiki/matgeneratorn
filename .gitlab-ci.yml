@@ -25,27 +25,28 @@ image: docker:27-cli
 
 # Define the stages of the pipeline and their order of execution.
 stages:
-  - build
   - test
   - deploy
 
-# Job to compile the code in the build stage.
-build-job:
-  stage: build
-  script:
-    - echo "Compiling the code..."
-    - sleep 2 # Simulate compilation time.
-    - echo "Compile complete."
-
-# Job to lint the code in the test stage, can run in parallel with unit-test-job.
-lint-test-job:
+# Lints the code in the test stage, can run in parallel with sum-test.
+lint-test:
   stage: test
   image: node:20 # necessary for having access to node + npm
   script:
     - echo "Running lint..."
-    - npm ci # install dependencies
+    - npm ci # necessary for installing dependencies, ESLint in this case
     - npm run lint
     - echo "Lint passed!"
+
+# Example test to try automated testing with Jest.
+sum-test:
+  stage: test
+  image: node:20 # necessary for having access to node + npm
+  script:
+    - echo "Running first automated example test - calculating sum of a and b..."
+    - npm ci # necessary for installing dependencies, Jest in this case.
+    - npm test
+    - echo "Test passed!"
 
 deploy:
   stage: deploy
