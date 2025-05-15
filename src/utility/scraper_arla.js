@@ -10,16 +10,6 @@ const step = 20 // the value of which skip parameter is incremented
 // or use "totalCount" instead which is their own recipesTotal TODO
 const recipesTotal = 768 // max amount of pages for weekday category
 const maxSkip = Math.floor(recipesTotal / step) * step // 760
-const foodCategories = [
-  { weekday: 'tdb:7007' },
-  { weekend: 'tdb:6985' },
-  { vegetarian: 'tdb:6517' },
-  { dessert: 'tdb:7013' },
-  { beef: 'tdb:6600' },
-  { chicken: 'tdb:6547' },
-  { pork: 'tdb:6594' },
-  { fish: 'tdb:6549' }
-]
 
 // Utility
 
@@ -40,14 +30,18 @@ function getRandomSkip () {
 }
 
 /**
- * First implementation of the scraper function,
- * this one handles scraping of arla.se.
+ * This version of getRecipes() can handle category searches such as
+ * chicken, fish, vegeterian etc. But fails when in cases when the skip value
+ * exceeds the totalCount of recipes in that specific search query. This is to be adressed
+ * in another, experimental branch, in which case this one is to be deleted.
+ * If the experimental branch does not work as intended, I will return to this one to fix this issue.
  *
- * @param {string} tag1 - the category of which to scrape from, i.e. "weekday-recipes = 7007".
- * @param {string} tag2 - the category of which to scrape from, i.e. "weekend-recipes = 6985".
+ * @param {string} tag1 - default category #1, weekday-tag.
+ * @param {string} tag2 - default category #2, weekend-tag.
+ * @param {string} tag3 - the category of food of which to apply to the search, i.e. vegetarian.
  * @returns {Array} searchResult - the recipes after filter has been applied.
  */
-export async function getRecipes (tag1, tag2) {
+export async function getRecipes (tag1, tag2, tag3) {
   try {
     if (!API_ENABLED) throw new Error('API disabled (simulated failure)')
 
@@ -62,9 +56,25 @@ export async function getRecipes (tag1, tag2) {
     // 7 recipes are to be generated from this API call
     recipesGenerated += 7
 
-    const [res1, res2] = await Promise.all([
-      axios.get(API_ENDPOINT, { params: { skip: currentSkip, tags: tag1 } }),
-      axios.get(API_ENDPOINT, { params: { skip: currentSkip, tags: tag2 } })
+    // if there is a category of food selected, add it as a tag to the API call with tag1/tag2.
+    const weekdayTags = tag3 ? [tag1, tag3] : [tag1]
+    const weekendTags = tag3 ? [tag2, tag3] : [tag2]
+
+    /**
+     * Builds the API URL which is to be used for the actual call.
+     *
+     * @param {Array} tagsArray - an array of tags to be used in the construction of the API.
+     * @returns {URL} url - the API.
+     */
+    const buildUrl = (tagsArray) => {
+      const url = `${API_ENDPOINT}?skip=${currentSkip}&tags=${tagsArray.join('&tags=')}`
+      console.log('built url:', url)
+      return url
+    }
+
+    const [resWeekday, resWeekend] = await Promise.all([
+      axios.get(buildUrl(weekdayTags)),
+      axios.get(buildUrl(weekendTags))
     ])
 
     /**
@@ -73,11 +83,11 @@ export async function getRecipes (tag1, tag2) {
      * is an array, return it, filtered and sliced to fit the frontend.
      * If not, due to API changes or malfunction, return an empty array as fallback.
      */
-    const weekdayRecipes = Array.isArray(res1.data?.gridCards?.items)
-      ? res1.data.gridCards.items.filter(item => item.type === 'recipe').slice(0, 5)
+    const weekdayRecipes = Array.isArray(resWeekday.data?.gridCards?.items)
+      ? resWeekday.data.gridCards.items.filter(item => item.type === 'recipe').slice(0, 5)
       : []
-    const weekendRecipes = Array.isArray(res2.data?.gridCards?.items)
-      ? res2.data.gridCards.items.filter(item => item.type === 'recipe').slice(0, 2)
+    const weekendRecipes = Array.isArray(resWeekend.data?.gridCards?.items)
+      ? resWeekend.data.gridCards.items.filter(item => item.type === 'recipe').slice(0, 2)
       : []
 
     const recipes = [...weekdayRecipes, ...weekendRecipes].map(({ title, url }) => ({
