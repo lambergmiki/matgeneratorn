@@ -15,10 +15,13 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { router } from './router/router.js'
 
+// Define the app variable at the top level so it can be exported for testing (e.g., with Supertest).
+let app
+
 try {
   console.log('BASE_URL from .env: ', process.env.BASE_URL) // Debugging the environment variable
 
-  const app = express()
+  app = express()
 
   const directoryFullName = dirname(fileURLToPath(import.meta.url)) // Get the directory of this file
   console.log('directoryFullName: ', directoryFullName)
@@ -71,3 +74,9 @@ try {
   console.error(err.message, { error: err })
   process.exitCode = 1
 }
+
+/*
+ * Export the app for testing purposes.
+ * This allows tools like Supertest to perform HTTP assertions without starting a live server.
+ */
+export default app
