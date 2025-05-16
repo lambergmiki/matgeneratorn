@@ -12,7 +12,7 @@
     "dev": "nodemon --inspect src/server.js",
     "docker:dev": "docker compose up --build",
     "lint": "npx eslint ./src || exit 0",
-    "test": "npx --node-options=--experimental-vm-modules jest --detectOpenHandles || exit 0"
+    "test": "npx --node-options=--experimental-vm-modules jest || exit 0"
   },
   "author": "Miki Lamberg",
   "license": "ISC",
