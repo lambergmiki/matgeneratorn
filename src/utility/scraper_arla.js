@@ -25,32 +25,75 @@ export async function getRecipes (tag1, tag2, tag3) {
     const weekdayTags = [tag1].concat(tag3 || [])
     const weekendTags = [tag2].concat(tag3 || [])
 
+    /**
+     * Builds the API URL which is to be used for the actual call.
+     *
+     * @param {Array} tagsArray - an array of tags to be used in the construction of the API.
+     * @returns {URL} url - the API.
+     */
+    const buildUrl = (tagsArray) => {
+      const url = `${API_ENDPOINT}?&tags=${tagsArray.join('&tags=')}`
+      console.log('built url:', url)
+      return url
+    }
+
     // Fire the two calls in parallel
-    const [resW, resE] = await Promise.all([
-      axios.get(API_ENDPOINT, { params: { tags: weekdayTags } }),
-      axios.get(API_ENDPOINT, { params: { tags: weekendTags } })
+    const [resWeekday, resWeekend] = await Promise.all([
+      axios.get(buildUrl(weekdayTags)),
+      axios.get(buildUrl(weekendTags))
     ])
 
-    // Extract & shuffle the pools
-    const poolW = (resW.data?.gridCards?.items || [])
+    // Extract recipe objects from payloads
+    const poolW = (resWeekday.data?.gridCards?.items || [])
       .filter(i => i.type === 'recipe')
-    const poolE = (resE.data?.gridCards?.items || [])
+    const poolE = (resWeekend.data?.gridCards?.items || [])
       .filter(i => i.type === 'recipe')
 
+    // Shuffles both pools of recipes
     const weekShuffled = shuffle(poolW)
     const endShuffled = shuffle(poolE)
 
-    // Pick 5 + 2
-    const weekdayRecipes = weekShuffled.slice(0, 5)
-    const weekendRecipes = endShuffled.slice(0, 2)
+    // Pick initial recipes and tag them by occasion
+    const weekdayRecipes = pickRandom(weekShuffled, 5)
+      .map(r => ({ ...r, occasion: 'weekday' }))
+    const weekendRecipes = pickRandom(endShuffled, 2)
+      .map(r => ({ ...r, occasion: 'weekend' }))
 
-    return [
-      ...weekdayRecipes,
-      ...weekendRecipes
-    ].map(({ title, url }) => ({
-      title,
-      url: BASE_URL + url.trim()
-    }))
+    // Merge recipes
+    let merged = weekdayRecipes.concat(weekendRecipes)
+    console.log(merged.map(r => `${r.title} (${r.occasion})`))
+
+    // Remove any duplicates
+    merged = removeDuplicates(merged)
+
+    // Count how many of each you have now
+    const numWeekday = merged.filter(r => r.occasion === 'weekday').length
+    const numWeekend = merged.filter(r => r.occasion === 'weekend').length
+
+    // If short, pull one more from that pool, tag it, and push()
+    if (numWeekday < 5) {
+      const next = weekShuffled.pop() // pop so you won’t re-use later
+      if (next) merged.push({ ...next, occasion: 'weekday' })
+      console.log(
+        'Replaced a duplicate with new weekday recipe:',
+        next.title, next.url
+      )
+    }
+
+    if (numWeekend < 2) {
+      const next = endShuffled.pop()
+      if (next) merged.push({ ...next, occasion: 'weekend' })
+      console.log(
+        'Replaced a duplicate with new weekend recipe:',
+        next.title, next.url
+      )
+    }
+
+    return merged
+      .map(({ title, url }) => ({
+        title,
+        url: BASE_URL + url.trim()
+      }))
   } catch (err) {
     console.error(err)
     return []
