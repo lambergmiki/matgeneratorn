@@ -2,11 +2,12 @@ import axios from 'axios'
 import { shuffle } from '../utility/shuffle.js'
 import { removeDuplicates } from './removeDuplicates.js'
 import { pickRandom } from './pickRandom.js'
+import { buildUrl } from './buildUrl.js'
+import { getCategorySkipLookup } from './categorySkipvalues.js'
 
 // CONFIG, SUBJECT TO CHANGE WITH ADDITIONAL FEATURES
 
 const BASE_URL = 'https://arla.se'
-const API_ENDPOINT = `${BASE_URL}/cvi/facet/api/sv/recipes`
 const API_ENABLED = true // debugger flag, used for testing error handling on bad API calls
 
 /**
@@ -25,22 +26,18 @@ export async function getRecipes (tag1, tag2, tag3) {
     const weekdayTags = [tag1].concat(tag3 || [])
     const weekendTags = [tag2].concat(tag3 || [])
 
-    /**
-     * Builds the API URL which is to be used for the actual call.
-     *
-     * @param {Array} tagsArray - an array of tags to be used in the construction of the API.
-     * @returns {URL} url - the API.
-     */
-    const buildUrl = (tagsArray) => {
-      const url = `${API_ENDPOINT}?&tags=${tagsArray.join('&tags=')}`
-      console.log('built url:', url)
-      return url
-    }
+    const categorySkips = getCategorySkipLookup(tag3)
+    console.log('🔍 categorySkips:', categorySkips) // debugger
+
+    // Randomly pick one skip from each array of values and destructure the one-item array.
+    const [weekdayRandomSkipValue] = pickRandom(categorySkips.weekdaySkips, 1)
+    const [weekendRandomSkipValue] = pickRandom(categorySkips.weekendSkips, 1)
+    console.log('🎲 weekdayRandomSkipValue:', weekdayRandomSkipValue) // debugger
 
     // Fire the two calls in parallel
     const [resWeekday, resWeekend] = await Promise.all([
-      axios.get(buildUrl(weekdayTags)),
-      axios.get(buildUrl(weekendTags))
+      axios.get(buildUrl(weekdayTags, weekdayRandomSkipValue)),
+      axios.get(buildUrl(weekendTags, weekendRandomSkipValue))
     ])
 
     // Extract recipe objects from payloads
