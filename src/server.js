@@ -50,7 +50,16 @@ try {
   app.use(express.urlencoded({ extended: true }))
 
   app.use(logger('dev'))
-  app.use(helmet())
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          defaultSrc: ["'self'"], // only load resources from my own origin
+          imgSrc: ["'self'", 'data:', 'https://images.arla.com'] // allow images from arla
+        }
+      }
+    })
+  )
   app.use(express.json())
 
   // Pass base URL to views (middleware).

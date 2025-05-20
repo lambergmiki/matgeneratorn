@@ -102,11 +102,13 @@ export async function getRecipes (tag1, tag2, tag3) {
         next.title, next.url
       )
     }
-
+    console.log('this is the merged list', merged)
+    console.log('this is object one and its attributes... specially picture url?', merged[0].picture.url)
     return merged
-      .map(({ title, url }) => ({
+      .map(({ title, url, picture }) => ({
         title,
-        url: BASE_URL + url.trim()
+        url: BASE_URL + url.trim(),
+        picture: picture.url
       }))
   } catch (err) {
     console.error(err)
