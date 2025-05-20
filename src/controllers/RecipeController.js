@@ -10,21 +10,6 @@ export const recipeController = {
    * @returns {Array} recipes -
    */
   async scrapeArla (req, res) {
-    /**
-     * The following array is used when determining which tag to apply to the API call.
-     * Not quite sure the map is going to be needed, but I'll keep it here in development.
-     */
-    // const foodCategories = [
-    //   { weekday: 'tdb:7007' },
-    //   { weekend: 'tdb:6985' },
-    //   { vegetarian: 'tdb:6517' },
-    //   { dessert: 'tdb:7013' },
-    //   { beef: 'tdb:6600' },
-    //   { chicken: 'tdb:6547' },
-    //   { pork: 'tdb:6594' },
-    //   { fish: 'tdb:6549' }
-    // ]
-
     const weekday = 'tdb:7007'
     const weekend = 'tdb:6985'
 

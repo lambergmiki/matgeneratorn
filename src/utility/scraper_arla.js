@@ -1,101 +1,113 @@
 import axios from 'axios'
+import { shuffle } from '../utility/shuffle.js'
+import { removeDuplicates } from './removeDuplicates.js'
+import { pickRandom } from './pickRandom.js'
+import { buildUrl } from './buildUrl.js'
+import { getCategorySkipLookup } from './categorySkipvalues.js'
 
 // CONFIG, SUBJECT TO CHANGE WITH ADDITIONAL FEATURES
 
 const BASE_URL = 'https://arla.se'
-const API_ENDPOINT = `${BASE_URL}/cvi/facet/api/sv/recipes`
 const API_ENABLED = true // debugger flag, used for testing error handling on bad API calls
 
-const step = 20 // the value of which skip parameter is incremented
-// or use "totalCount" instead which is their own recipesTotal TODO
-const recipesTotal = 768 // max amount of pages for weekday category
-const maxSkip = Math.floor(recipesTotal / step) * step // 760
-
-// Utility
-
-let recipesGenerated = 0
-let currentSkip = null
-
-/**
- * Generate a random index value from 0 to 38 (idx),
- * then multiply by 20 (step) to get skip value between 20 and 760,
- * matching the total amount of recipes, 768.
- *
- * @returns {number} The skip value to be inserted into the API_ENDPOINT.
- */
-function getRandomSkip () {
-  const maxIndex = maxSkip / step // 38
-  const idx = Math.floor(Math.random() * (maxIndex + 1))
-  return idx * step // 0,20,40…760
+// Hard-coded skip values per tag due to time constraint
+const BASE_TAGS = {
+  'tdb:7007': Array.from({ length: 174 }, (_, i) => i * 20), // [0, 20, …, 3460]
+  'tdb:6985': Array.from({ length: 39 }, (_, i) => i * 20) // [0, 20, …, 760]
 }
 
 /**
- * This version of getRecipes() can handle category searches such as
- * chicken, fish, vegeterian etc. But fails when in cases when the skip value
- * exceeds the totalCount of recipes in that specific search query. This is to be adressed
- * in another, experimental branch, in which case this one is to be deleted.
- * If the experimental branch does not work as intended, I will return to this one to fix this issue.
+ * First version of experimental, multi-category getRecipes().
  *
  * @param {string} tag1 - default category #1, weekday-tag.
  * @param {string} tag2 - default category #2, weekend-tag.
- * @param {string} tag3 - the category of food of which to apply to the search, i.e. vegetarian.
+ * @param {string} tag3 - optional filter tag, i.e. "vegetarian" or
  * @returns {Array} searchResult - the recipes after filter has been applied.
  */
 export async function getRecipes (tag1, tag2, tag3) {
   try {
     if (!API_ENABLED) throw new Error('API disabled (simulated failure)')
 
-    // If skip value is null or the amount of recipes generated exceed 20,
-    // get a new skip value and reset counter.
-    if (currentSkip === null || recipesGenerated + 7 > step) {
-      currentSkip = getRandomSkip()
-      recipesGenerated = 0
-      console.log('New skip value selected:', currentSkip)
+    // if there are categories of food selected (tag3), add it or them to the weekday/weekend tags array.
+    const weekdayTags = [tag1].concat(tag3 || [])
+    const weekendTags = [tag2].concat(tag3 || [])
+
+    // Decide where to pull skip-values from
+    // if tag3 is undefined or not in your BASE_TAGS lookup, fall back to defaults
+    let weekdaySkips = BASE_TAGS[tag1]
+    let weekendSkips = BASE_TAGS[tag2]
+
+    if (tag3) {
+      // overwrite previous arrays with skip values of tag3
+      const dynamic = getCategorySkipLookup(tag3)
+      weekdaySkips = dynamic.weekdaySkips
+      weekendSkips = dynamic.weekendSkips
+      console.log('🔍 dynamic:', dynamic) // debugger
     }
 
-    // 7 recipes are to be generated from this API call
-    recipesGenerated += 7
+    // Randomly pick one skip from each array of values and destructure the one-item array.
+    const [weekdayRandomSkip] = pickRandom(weekdaySkips, 1)
+    const [weekendRandomSkip] = pickRandom(weekendSkips, 1)
+    console.log('🎲 weekdayRandomSkip:', weekdayRandomSkip) // debugger
+    console.log('🎲 weekendRandomSkip:', weekendRandomSkip) // debugger
 
-    // if there is a category of food selected, add it as a tag to the API call with tag1/tag2.
-    const weekdayTags = tag3 ? [tag1, tag3] : [tag1]
-    const weekendTags = tag3 ? [tag2, tag3] : [tag2]
-
-    /**
-     * Builds the API URL which is to be used for the actual call.
-     *
-     * @param {Array} tagsArray - an array of tags to be used in the construction of the API.
-     * @returns {URL} url - the API.
-     */
-    const buildUrl = (tagsArray) => {
-      const url = `${API_ENDPOINT}?skip=${currentSkip}&tags=${tagsArray.join('&tags=')}`
-      console.log('built url:', url)
-      return url
-    }
-
+    // Fire the two calls in parallel
     const [resWeekday, resWeekend] = await Promise.all([
-      axios.get(buildUrl(weekdayTags)),
-      axios.get(buildUrl(weekendTags))
+      axios.get(buildUrl(weekdayTags, weekdayRandomSkip)),
+      axios.get(buildUrl(weekendTags, weekendRandomSkip))
     ])
 
-    /**
-     * Defensive assignment of `items` - first, by optional chaining, check that `data`,
-     * `gridCards` and `items` all exist in the expected structure. If they do, and `items`
-     * is an array, return it, filtered and sliced to fit the frontend.
-     * If not, due to API changes or malfunction, return an empty array as fallback.
-     */
-    const weekdayRecipes = Array.isArray(resWeekday.data?.gridCards?.items)
-      ? resWeekday.data.gridCards.items.filter(item => item.type === 'recipe').slice(0, 5)
-      : []
-    const weekendRecipes = Array.isArray(resWeekend.data?.gridCards?.items)
-      ? resWeekend.data.gridCards.items.filter(item => item.type === 'recipe').slice(0, 2)
-      : []
+    // Extract recipe objects from payloads and filter into a managable array of recipe objects
+    const poolW = (resWeekday.data?.gridCards?.items || [])
+      .filter(i => i.type === 'recipe')
+    const poolE = (resWeekend.data?.gridCards?.items || [])
+      .filter(i => i.type === 'recipe')
 
-    const recipes = [...weekdayRecipes, ...weekendRecipes].map(({ title, url }) => ({
-      title,
-      url: BASE_URL + url.trim()
-    }))
+    // Shuffles both pools of recipes
+    const weekShuffled = shuffle(poolW)
+    const endShuffled = shuffle(poolE)
 
-    return recipes
+    // Pick initial recipes and tag them by occasion
+    const weekdayRecipes = pickRandom(weekShuffled, 5)
+      .map(r => ({ ...r, occasion: 'weekday' }))
+    const weekendRecipes = pickRandom(endShuffled, 2)
+      .map(r => ({ ...r, occasion: 'weekend' }))
+    console.log('weekdayRecipes, randomiserade, och borde stå som occasion: weekend', weekdayRecipes)
+
+    // Merge recipes.
+    let merged = weekdayRecipes.concat(weekendRecipes)
+    console.log(merged.map(r => `${r.title} (${r.occasion})`))
+
+    // Remove any duplicates.
+    merged = removeDuplicates(merged)
+
+    // Count the amount of recipes per occasion (5 + 2 for a default week).
+    const numWeekday = merged.filter(r => r.occasion === 'weekday').length
+    const numWeekend = merged.filter(r => r.occasion === 'weekend').length
+
+    // If short, refill by extracting one recipe from that pool, tag it and push it into the merged list.
+    if (numWeekday < 5) {
+      const next = weekShuffled.pop()
+      if (next) merged.push({ ...next, occasion: 'weekday' })
+      console.log(
+        'Replaced a duplicate with new weekday recipe:',
+        next.title, next.url
+      )
+    }
+    if (numWeekend < 2) {
+      const next = endShuffled.pop()
+      if (next) merged.push({ ...next, occasion: 'weekend' })
+      console.log(
+        'Replaced a duplicate with new weekend recipe:',
+        next.title, next.url
+      )
+    }
+
+    return merged
+      .map(({ title, url }) => ({
+        title,
+        url: BASE_URL + url.trim()
+      }))
   } catch (err) {
     console.error(err)
     return []
