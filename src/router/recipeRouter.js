@@ -7,4 +7,4 @@ export const router = express.Router()
 router.get('/', (req, res) => { res.render('recipes/index') })
 
 // the main route to generated recipes, recipes/list, subject to change
-router.post('/', limiter, (req, res) => recipeController.scrapeArla(req, res))
+router.post('/', limiter, (req, res) => recipeController.renderRecipes(req, res))

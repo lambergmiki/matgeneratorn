@@ -1,39 +1,14 @@
 <main>
   <section class="recipe-section">
-    <h2>Din framslumpade veckosedel - voilà!</h2>
-    <% if (typeof recipes !== 'undefined') { %>
-      <div class="cards">
-        <% recipes.forEach(recipe => { %>
-          <div class="card">
-            <div class="card-content">
-              <p class="content-text"><%= recipe.title %></p>
-              <p class="source-text"><a href="<%= recipe.url %>" target="_blank">Se recept</a></p>
-            </div>
-            <div class="save-button-container">
-              <button class="save-button">Spara</button>
-            </div>
-          </div>
-        <% }) %>
-      </div>
-      <% } else { %>
-        <div class="error-placeholder">
-        </div>
-    <% } %>
+    <h2>
+      (placeholder) Hallå! Det är meningen att du ska ha en veckosedel här. Tryck på knappen. Just do it. Do it now.
+    </h2>
   </section>
 
   <section class="generator-section">
 
       <form action="recipes" method="post">
         <button class="recipe-button">Ge mig recepten!</button>
-      
-<!-- Currently not developed as features (choosing the amount of weekday/weekend recipes to generate) -->
-
-      <!-- <h3>Vardagsrecept (WIP)</h3>
-      <label>Antal <input type="number" name="weekday" min="0" max="7"/></label>
-
-
-      <h3>Helgrecept (WIP)</h3>
-      <label>Antal <input type="number" name="weekend" min="0" max="7" /></label> -->
 
       <section class="all-categories">
           <div class="category-protein">
