@@ -1,20 +1,20 @@
-import { getRecipes } from '../utility/scraper_arla.js'
+import { getRecipes } from '../utility/recipeService.js'
 
 export const recipeController = {
 
   /**
-   * Invokes the scraper function and renders the result client side.
+   * Invokes the API call via getRecipes() and renders the result client side.
    *
    * @param {object} req - Express request object.
    * @param {object} res - Express response object.
    * @returns {Array} recipes -
    */
-  async scrapeArla (req, res) {
+  async renderRecipes (req, res) {
     const weekday = 'tdb:7007'
     const weekend = 'tdb:6985'
 
     try {
-      console.log('req.body.tag(s) in scrapeArla():', req.body.tag) // ← must be an array or undefined
+      console.log('req.body.tag(s) in renderRecipes():', req.body.tag) // ← must be an array or undefined
       const tag3 = req.body.tag
       const recipes = tag3
         ? await getRecipes(weekday, weekend, tag3)

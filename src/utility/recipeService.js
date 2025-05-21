@@ -5,8 +5,6 @@ import { pickRandom } from './pickRandom.js'
 import { buildUrl } from './buildUrl.js'
 import { getCategorySkipLookup } from './categorySkipvalues.js'
 
-// CONFIG, SUBJECT TO CHANGE WITH ADDITIONAL FEATURES
-
 const BASE_URL = 'https://arla.se'
 const API_ENABLED = true // debugger flag, used for testing error handling on bad API calls
 
@@ -102,8 +100,9 @@ export async function getRecipes (tag1, tag2, tag3) {
         next.title, next.url
       )
     }
+
     console.log('this is the merged list', merged)
-    console.log('this is object one and its attributes... specially picture url?', merged[0].picture.url)
+
     return merged
       .map(({ title, url, picture }) => ({
         title,
