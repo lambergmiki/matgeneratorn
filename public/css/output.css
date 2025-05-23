@@ -586,6 +586,14 @@ header, footer {
   background-color: rgb(255 248 220 / var(--tw-bg-opacity, 1));
 }
 
+h1 {
+  font-family: "Abril Fatface", cursive;
+  font-size: 3rem;
+  line-height: 1;
+  --tw-text-opacity: 1;
+  color: rgb(23 23 23 / var(--tw-text-opacity, 1));
+}
+
 h2 {
   font-family: "Abril Fatface", cursive;
   font-size: 1.5rem;
@@ -637,17 +645,21 @@ p {
   }
 }
 
-.border-t-2 {
-  border-top-width: 2px;
-}
-
 .border-b-2 {
   border-bottom-width: 2px;
+}
+
+.border-t-2 {
+  border-top-width: 2px;
 }
 
 .border-t-neutral-800 {
   --tw-border-opacity: 1;
   border-top-color: rgb(38 38 38 / var(--tw-border-opacity, 1));
+}
+
+.p-5 {
+  padding: 1.25rem;
 }
 
 .py-2 {
@@ -679,7 +691,7 @@ a {
   text-decoration-line: none;
 }
 
-a:hover {
+a:hover, button:hover {
   --tw-text-opacity: 1;
   color: rgb(202 138 4 / var(--tw-text-opacity, 1));
   /* closest to 'goldenrod' */
@@ -699,6 +711,64 @@ h2 {
   color: rgb(23 23 23 / var(--tw-text-opacity, 1));
 }
 
+/* RECIPE SECTION */
+
+.recipe-section {
+  background-color: bisque;
+  display: flex;
+  height: 100%;
+  padding: 1rem 2rem;
+  flex: 1;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: row;
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 0.75rem;
+  flex: 1;
+  gap: 1rem;
+}
+
+.thumbnail {
+  flex: 1 1 33%;
+  /* grow/shrink, base 33% width */
+  max-width: 33%;
+}
+
+.thumbnail img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.card-content {
+  flex: 2 1 67%;
+  /* grow/shrink, base 67% width */
+  display: flex;
+  flex-direction: column;
+  max-width: 67%;
+}
+
+.recipe-column > .card {
+  min-width: 450px;
+  /* Min width of recipe card */
+}
+
+.card-title {
+  margin: 0 0 0.5rem;
+  font-weight: bold;
+}
+
+/* RECIPE SECTION */
+
 p {
   font-family: Poppins, sans-serif;
   font-size: 1rem;
@@ -706,4 +776,9 @@ p {
   line-height: 1.625;
   --tw-text-opacity: 1;
   color: rgb(64 64 64 / var(--tw-text-opacity, 1));
+}
+
+.animate-me {
+  opacity: 0;
+  transform: scale(0.5);
 }

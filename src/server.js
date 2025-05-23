@@ -55,7 +55,7 @@ try {
       contentSecurityPolicy: {
         directives: {
           defaultSrc: ["'self'"], // only load resources from my own origin
-          scriptSrc: ["'self'"], // TODO: if necessary for deps, allow inline scripts later
+          scriptSrc: ["'self'", 'https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js'],
           imgSrc: ["'self'", 'data:', 'https://images.arla.com'] // allow images from arla
         }
       }
