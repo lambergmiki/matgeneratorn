@@ -55,6 +55,7 @@ try {
       contentSecurityPolicy: {
         directives: {
           defaultSrc: ["'self'"], // only load resources from my own origin
+          scriptSrc: ["'self'"], // TODO: if necessary for deps, allow inline scripts later
           imgSrc: ["'self'", 'data:', 'https://images.arla.com'] // allow images from arla
         }
       }
