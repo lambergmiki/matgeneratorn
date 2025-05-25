@@ -19,16 +19,12 @@ import { router } from './router/router.js'
 let app
 
 try {
-  console.log('BASE_URL from .env: ', process.env.BASE_URL) // Debugging the environment variable
-
   app = express()
 
   const directoryFullName = dirname(fileURLToPath(import.meta.url)) // Get the directory of this file
-  console.log('directoryFullName: ', directoryFullName)
 
-  // Set the base URL to use for all relative URLs in a document.
-  const baseURL = process.env.BASE_URL || '/matgeneratorn/'
-  console.log('baseURL: ', baseURL)
+  // Set the base URL (/matgeneratorn/ in production) to use for all relative URLs in a document.
+  const baseURL = '/matgeneratorn/'
 
   app.set('trust proxy', 1) // Trust the first proxy, Nginx, to pass the real client IP via X-Forwarded-For
 
@@ -69,15 +65,14 @@ try {
     next()
   })
 
-  app.use(baseURL, router)
-
   // Serve static files such as CSS, images, and JavaScript.
   // The '/matgeneratorn' path will be used for serving static content (like CSS files) from the 'public' folder.
   app.use(baseURL, express.static(join(directoryFullName, '..', 'public')))
 
-  // include fallback PORT if .env is not included at runtime for Docker container.
-  // .env is currently not in use
-  const server = app.listen(process.env.PORT || 5005, () => {
+  app.use(baseURL, router)
+
+  // Listen in on port 5005.
+  const server = app.listen(5005, () => {
     console.info(`Server running at http://localhost:${server.address().port}`)
   })
 } catch (err) {
