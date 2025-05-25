@@ -1,5 +1,11 @@
 # matgeneratorn
-
+Dessa delar ska finnas med i samband med slutleverans
+Vision
+Krav (use-cases, product backlog)
+Tester (strategi, plan, specifikation, rapporter)
+Planering ( sprint-backlog, timmar, genomfört)
+Dokumentation om projektets arkitektur, installationsanvisning, hur man kör och testar
+Licens
 
 
 ## Getting started

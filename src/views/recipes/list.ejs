@@ -24,14 +24,12 @@
                     <% } %>
                   </div>
                   <div class="card-content">
-                    <p class="card-title"><%= recipe.title %></p>
-                    <p class="card-source">
+                    <p><%= recipe.title %></p>
+                    <p>
                       <a href="<%= recipe.url %>" target="_blank">Se recept</a>
                     </p>
                   </div>
-                  <div class="save-button-container">
-                    <button class="save-button">Spara</button>
-                  </div>
+                    <button>Spara</button>
                 </div>
               <% }) %>
             <% } else { %>
@@ -50,14 +48,14 @@
 
       <section class="all-categories">
           <div class="category-protein">
-              <h3>Protein</h3>
+              <h2>Protein</h2>
               <label><input type="checkbox" name="tag" value="tdb:6547" /> Kyckling</label><br/>
               <label><input type="checkbox" name="tag" value="tdb:6549" /> Fisk</label><br/>
               <label><input type="checkbox" name="tag" value="tdb:6594" /> Fläsk</label><br/>
               <label><input type="checkbox" name="tag" value="tdb:6600" /> Nöt</label>
           </div>
           <div class="category-veg">
-              <h3>Veg</h3>
+              <h2>Veg</h2>
               <label><input type="checkbox" name="tag" value="tdb:6517" /> Veg</label>
           </div>
       </section>
