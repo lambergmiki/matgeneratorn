@@ -27,7 +27,7 @@ try {
   console.log('directoryFullName: ', directoryFullName)
 
   // Set the base URL to use for all relative URLs in a document.
-  const baseURL = process.env.BASE_URL || '/'
+  const baseURL = process.env.BASE_URL || '/matgeneratorn/'
   console.log('baseURL: ', baseURL)
 
   app.set('trust proxy', 1) // Trust the first proxy, Nginx, to pass the real client IP via X-Forwarded-For
