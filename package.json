@@ -17,7 +17,7 @@
     "test": "npx --node-options=--experimental-vm-modules jest || exit 0"
   },
   "author": "Miki Lamberg",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@lnu/json-js-cycle": "2.0.5",
     "axios": "^1.8.4",
