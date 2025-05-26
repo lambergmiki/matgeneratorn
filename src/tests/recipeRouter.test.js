@@ -26,6 +26,6 @@ describe('GET request for / (root) route', () => {
     const $ = cheerio.load(response.text)
     const title = $('title').text()
 
-    expect(title).toBe('Maträttsgeneratorn')
+    expect(title).toBe('Matgeneratorn')
   })
 })

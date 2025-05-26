@@ -2,8 +2,7 @@
  * @file Defines the main application.
  * Lightweight server.js.
  * @module src/server
- * @author Miki Lamberg
- * @version 0.2
+ * @version 0.9
  */
 
 import '@lnu/json-js-cycle'
@@ -15,7 +14,7 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { router } from './router/router.js'
 
-// Define the app variable at the top level so it can be exported for testing (e.g., with Supertest).
+// Defines the app variable at the top level so it can be exported for testing (e.g., with Supertest).
 let app
 
 try {
@@ -42,10 +41,10 @@ try {
   /**
    * Middleware to parse URL-encoded bodies (from HTML form submissions, e.g., recipes/index.ejs).
    *
-   * Using `extended: true` enables parsing of rich objects and arrays,
-   * which is necessary because users can select multiple checkboxes for tags.
-   * This ensures that fields like `tag` with multiple selections are parsed as arrays
-   * (e.g., req.body.tag = ['tdb:6547', 'tdb:6549']).
+   * Using `extended: true` enables parsing of URL-encoded data correctly.
+   *
+   * Users can only select a single checkbox for tags in this version,
+   * so the parsed field (`req.body.tag`) will always be a string, i.e. 'tdb:6547'.
    */
   app.use(express.urlencoded({ extended: true }))
 
@@ -55,7 +54,7 @@ try {
       contentSecurityPolicy: {
         directives: {
           defaultSrc: ["'self'"], // only load resources from my own origin
-          scriptSrc: ["'self'", 'https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js'],
+          scriptSrc: ["'self'", 'https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js'], // allow scripts from animejs lib via CDN
           imgSrc: ["'self'", 'data:', 'https://images.arla.com'] // allow images from arla
         }
       }
@@ -69,11 +68,11 @@ try {
     next()
   })
 
-  app.use(baseURL, router)
-
   // Serve static files such as CSS, images, and JavaScript.
-  // The '/matgeneratorn' path will be used for serving static content (like CSS files) from the 'public' folder.
+  // The '/matgeneratorn' path will be used for serving static content from the 'public' folder.
   app.use(baseURL, express.static(join(directoryFullName, '..', 'public')))
+
+  app.use(baseURL, router)
 
   // include fallback PORT if .env is not included at runtime for Docker container.
   // .env is currently not in use
