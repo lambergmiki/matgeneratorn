@@ -20,7 +20,7 @@ export const recipeController = {
   async renderRecipes (req, res) {
     const weekday = 'tdb:7007'
     const weekend = 'tdb:6985'
-    const days = ['måndag', 'tisdag', 'onsdag', 'torsdag', 'fredag', 'lördag', 'söndag']
+    const days = ['MÅN', 'TIS', 'ONS', 'TOR', 'FRE', 'LÖR', 'SÖN']
 
     try {
       // `req.body.tag` if present is applied as a tag (third parameter) to API call and filters result.
@@ -39,7 +39,7 @@ export const recipeController = {
       return res.render('recipes/list', { recipes, days })
     } catch (err) {
       console.error(err)
-      return res.status(500).json({ message: 'API seems to be disabled, contact application manager.' })
+      return res.status(500).json({ message: 'API seems to be disabled, contact application manager.' }) // TODO: error handler
     }
   }
 }

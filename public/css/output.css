@@ -684,9 +684,36 @@ button {
   padding-inline-start: 0.25rem;
 }
 
+.text-center {
+  text-align: center;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.text-hover {
+  --tw-text-opacity: 1;
+  color: rgb(202 138 4 / var(--tw-text-opacity, 1));
+}
+
+.\[text-orientation\:upright\] {
+  text-orientation: upright;
+}
+
+.\[writing-mode\:vertical-lr\] {
+  writing-mode: vertical-lr;
 }
 
 body {
@@ -706,11 +733,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-}
-
-.dayDiv {
-  height: 70px;
-  width: 130px;
 }
 
 .card {
