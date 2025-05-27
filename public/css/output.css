@@ -708,6 +708,11 @@ body {
   gap: 0.5rem;
 }
 
+.dayDiv {
+  height: 70px;
+  width: 130px;
+}
+
 .card {
   display: flex;
   flex-direction: row;
