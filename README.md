@@ -1,4 +1,5 @@
 <a id="readme-top"></a>
+[![license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 
@@ -61,7 +62,8 @@ This project was built with the following tech stack.
 [![CSS3][CSS3]][CSS3-url]
 [![Node.js][Node.js]][Node.js-url]
 [![Express.js][Express.js]][Express-url]
-[![Tailwind CSS][TailwindCSS]][TailwindCSS-url]
+[![Tailwind CSS][Tailwind CSS]][TailwindCSS-url]
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -114,12 +116,10 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Miki Lamberg
+You are welcome to contact me by email or LinkedIn!
+
 [lamberg.miki@gmail.com](mailto:lamberg.miki@gmail.com)  
 [LinkedIn](https://www.linkedin.com/in/lambergmiki)
-
-
-Project Link: https://github.com/lambergmiki/matgeneratorn
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -140,10 +140,9 @@ Andreas Eriksson for fantastic help with deploying my app privately, outside the
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[license-shield]: https://img.shields.io/badge/MIT-green?style=for-the-badge
+[license-url]: https://github.com/lambergmiki/matgeneratorn/blob/main/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white
 [linkedin-url]: https://www.linkedin.com/in/lambergmiki
 [JavaScript]: https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black
 [JavaScript-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
@@ -155,5 +154,5 @@ Andreas Eriksson for fantastic help with deploying my app privately, outside the
 [Node.js-url]: https://nodejs.org/
 [Express.js]: https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white
 [Express-url]: https://expressjs.com/
-[TailwindCSS]: https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white
+[Tailwind CSS]: https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white
 [TailwindCSS-url]: https://tailwindcss.com/
