@@ -56,12 +56,12 @@ WIP
 
 This project was built with the following tech stack.
 
-* [![JavaScript][JavaScript]][JavaScript-url]
-* [![HTML5][HTML5]][HTML5-url]
-* [![CSS3][CSS3]][CSS3-url]
-* [![Node.js][Node.js]][Node.js-url]
-* [![Express.js][Express.js]][Express-url]
-* [![Tailwind CSS][TailwindCSS]][TailwindCSS-url]
+[![JavaScript][JavaScript]][JavaScript-url]
+[![HTML5][HTML5]][HTML5-url]
+[![CSS3][CSS3]][CSS3-url]
+[![Node.js][Node.js]][Node.js-url]
+[![Express.js][Express.js]][Express-url]
+[![Tailwind CSS][TailwindCSS]][TailwindCSS-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -144,7 +144,7 @@ Andreas Eriksson for fantastic help with deploying my app privately, outside the
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: www.linkedin.com/in/lambergmiki
+[linkedin-url]: https://www.linkedin.com/in/lambergmiki
 [JavaScript]: https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black
 [JavaScript-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
 [HTML5]: https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white
