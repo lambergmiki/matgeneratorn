@@ -558,6 +558,11 @@ body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  background-image: linear-gradient(to top, var(--tw-gradient-stops));
+  --tw-gradient-from: #CA8A04 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(202 138 4 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+  --tw-gradient-to: #D6D3D1 var(--tw-gradient-to-position);
   font-family: Poppins, sans-serif;
   --tw-text-opacity: 1;
   color: rgb(30 41 59 / var(--tw-text-opacity, 1));
@@ -582,8 +587,6 @@ a {
 
 header, footer {
   display: flex;
-  --tw-bg-opacity: 1;
-  background-color: rgb(214 211 209 / var(--tw-bg-opacity, 1));
 }
 
 h1 {
@@ -653,19 +656,6 @@ button {
   }
 }
 
-.border-b-2 {
-  border-bottom-width: 2px;
-}
-
-.border-t-2 {
-  border-top-width: 2px;
-}
-
-.border-t-neutral-800 {
-  --tw-border-opacity: 1;
-  border-top-color: rgb(38 38 38 / var(--tw-border-opacity, 1));
-}
-
 .p-1 {
   padding: 0.25rem;
 }
@@ -688,24 +678,14 @@ button {
   text-align: center;
 }
 
-.text-2xl {
-  font-size: 1.5rem;
-  line-height: 2rem;
-}
-
-.text-xs {
-  font-size: 0.75rem;
-  line-height: 1rem;
-}
-
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
 }
 
-.text-hover {
-  --tw-text-opacity: 1;
-  color: rgb(202 138 4 / var(--tw-text-opacity, 1));
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
 }
 
 .\[text-orientation\:upright\] {
@@ -738,7 +718,8 @@ body {
 .card {
   display: flex;
   flex-direction: row;
-  border: 1px solid #ccc;
+  border: 2px solid #ccc;
+  border-radius: 15px;
   flex: 1;
   padding: 0.25rem;
 }
