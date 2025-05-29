@@ -98,9 +98,13 @@ WIP
 <!-- ROADMAP -->
 ## Roadmap
 
+WIP
+
 - [x] Add README
 - [ ] Save x recipes and generate new recipes for remaining ones
-- [ ] ... more to be added
+- [ ] Ability to generate recipes from multiple categories
+- [ ] Improve algorithm to reduce response times for the recipe generator
+- [ ] Filter to exclude desserts
 
 
 
@@ -127,7 +131,7 @@ You are welcome to contact me by email or LinkedIn!
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-Andreas Eriksson for fantastic help with deploying my app privately, outside the servers supplied by our University.
+Huge thanks to Andreas Eriksson for fantastic help with deploying my app privately, outside the servers supplied by our University.
 
 * [README template by othneildrew](https://github.com/othneildrew)
 * [Choose an Open Source License](https://choosealicense.com)
