@@ -101,6 +101,7 @@ WIP
 WIP
 
 - [x] Add README
+- [ ] Add possibility to exclude desserts
 - [ ] Save x recipes and generate new recipes for remaining ones
 - [ ] Ability to generate recipes from multiple categories
 - [ ] Improve algorithm to reduce response times for the recipe generator
