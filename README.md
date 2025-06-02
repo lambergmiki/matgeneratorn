@@ -72,15 +72,32 @@ This project was built with the following tech stack.
 <!-- GETTING STARTED -->
 ## Getting Started
 
-WIP
-
 ### Prerequisites
 
-WIP
+* Docker
+* Docker Compose
 
-### Installation
+### Installation & Setup
 
-WIP
+* Clone the repository:
+
+Using HTTPS:
+```
+git clone https://github.com/lambergmiki/matgeneratorn.git
+cd  matgeneratorn
+```
+
+Or using SSH:
+```
+git clone git@github.com:lambergmiki/matgeneratorn.git
+cd matgeneratorn
+```
+
+Then start the development environment with Docker Compose:
+`docker compose -f compose.dev.yaml up --build -d`
+
+By default, the app will be available at: http://localhost:5005
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
