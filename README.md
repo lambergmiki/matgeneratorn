@@ -34,7 +34,6 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -47,8 +46,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Matgeneratorn is a simple web app built from my wife's wish for an easy way to get recipe suggestions with ingredients and instructions. It generates a weekly meal plan with 7 recipe "cards" and allows filtering recipes by categories, i.e. different proteins or vegetarian only.
+Matgeneratorn is a simple web app built because my wife wished for an easy way to get recipe suggestions with ingredients and instructions. It generates a weekly meal plan with 7 recipe "cards" and allows filtering recipes by categories, i.e. different proteins or vegetarian only.
 Recipes are fetched using an API from Arla.se, and all links point back to their site for full details. As of today the app is only available in Swedish.
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -75,12 +75,12 @@ This project was built with the following tech stack.
 
 ### Prerequisites
 
-* Docker
-* Docker Compose
+* [Docker](https://www.docker.com/get-started)
+* [Docker Compose](https://docs.docker.com/compose/)
 
 ### Installation & Setup
 
-* Clone the repository:
+Clone the repository
 
 Using HTTPS:
 ```
@@ -88,43 +88,34 @@ git clone https://github.com/lambergmiki/matgeneratorn.git
 cd  matgeneratorn
 ```
 
-Or using SSH:
+Using SSH:
 ```
 git clone git@github.com:lambergmiki/matgeneratorn.git
 cd matgeneratorn
 ```
+---
+
 
 Then start the development environment with Docker Compose:
-`docker compose -f compose.dev.yaml up --build -d`
+```
+docker compose -f compose.dev.yaml up --build -d
+```
+---
 
-By default, the app will be available at: http://localhost:5005
+By default the app will be available at: http://localhost:5005
 
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-WIP
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- ROADMAP -->
 ## Roadmap
 
-WIP
-
 - [x] Add README
-- [ ] Add possibility to exclude desserts
+- [ ] Filter to exclude desserts
 - [ ] Save x recipes and generate new recipes for remaining ones
 - [ ] Ability to generate recipes from multiple categories
 - [ ] Improve algorithm to reduce response times for the recipe generator
-- [ ] Filter to exclude desserts
-
 
 
 <!-- LICENSE -->
@@ -133,7 +124,6 @@ WIP
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- CONTACT -->
