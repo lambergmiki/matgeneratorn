@@ -47,7 +47,8 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-WIP
+Matgeneratorn is a simple web app built from my wife's wish for an easy way to get recipe suggestions with ingredients and instructions. It generates a weekly meal plan with 7 recipe "cards" and allows filtering recipes by categories, i.e. different proteins or vegetarian only.
+Recipes are fetched using an API from Arla.se, and all links point back to their site for full details. As of today the app is only available in Swedish.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
