@@ -113,7 +113,7 @@ By default the app will be available at: http://localhost:5005
 ## Roadmap
 
 - [x] Add README
-- [ ] Filter to exclude desserts
+- [ ] [Eliminate desserts from generated recipes](https://github.com/lambergmiki/matgeneratorn/issues/1)
 - [ ] Save x recipes and generate new recipes for remaining ones
 - [ ] Ability to generate recipes from multiple categories
 - [ ] Improve algorithm to reduce response times for the recipe generator
