@@ -1,6 +1,7 @@
 <a id="readme-top"></a>
-[![license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
+[![MIT License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](https://github.com/lambergmiki/matgeneratorn/blob/main/LICENSE.txt)
+[![Email](https://img.shields.io/badge/Email-miki@mikilamberg.me-blue?style=for-the-badge&logo=gmail&logoColor=white)](mailto:miki@mikilamberg.me)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/lambergmiki)
 
 
 
@@ -78,7 +79,7 @@ This project was built with the following tech stack.
 * [Docker](https://www.docker.com/get-started)
 * [Docker Compose](https://docs.docker.com/compose/)
 
-### Installation & Setup
+### Installation
 
 Clone the repository
 
@@ -129,10 +130,8 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-You are welcome to contact me by email or LinkedIn!
+Did you find bugs that are not yet listed as [issues](https://github.com/lambergmiki/matgeneratorn/issues), or do you simply want a chat? E-mail me or send me a DM on LinkedIn (both can be found at the top of this README!).
 
-[lamberg.miki@gmail.com](mailto:lamberg.miki@gmail.com)  
-[LinkedIn](https://www.linkedin.com/in/lambergmiki)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -141,11 +140,13 @@ You are welcome to contact me by email or LinkedIn!
 ## Acknowledgments
 
 Huge thanks to Andreas Eriksson for fantastic help with deploying my app privately, outside the servers supplied by our University.
+Thanks to Arla for an extensive API, making this recipe generator possible.
 
+* [arla.se](https://arla.se)
 * [README template by othneildrew](https://github.com/othneildrew)
 * [Choose an Open Source License](https://choosealicense.com)
 * [Img Shields](https://shields.io)
-* [GitHub Pages](https://pages.github.com)
+* [Simple Icons](https://github.com/simple-icons/simple-icons)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -154,6 +155,7 @@ Huge thanks to Andreas Eriksson for fantastic help with deploying my app private
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [license-shield]: https://img.shields.io/badge/MIT-green?style=for-the-badge
+[MIT License]: https://img.shields.io/badge/License-MIT-green?style=for-the-badge
 [license-url]: https://github.com/lambergmiki/matgeneratorn/blob/main/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white
 [linkedin-url]: https://www.linkedin.com/in/lambergmiki
