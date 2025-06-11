@@ -13,6 +13,9 @@
 
   <p align="center">
     A food recipe generator!
+    <br />
+    <br />
+    <a href="https://matgeneratorn.se"><strong>Visit the Live App »</strong></a>
   </p>
 </div>
 
