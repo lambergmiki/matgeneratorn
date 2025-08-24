@@ -5,7 +5,7 @@
 @layer base {
 
   body {
-    @apply flex flex-col min-h-screen font-body text-primary bg-gradient-to-t from-hover to-headerFooterBg; /* Applies 100% height of screen to body */
+    @apply flex flex-col min-h-screen font-body text-primary bg-headerFooterBg; /* Applies 100% height of screen to body */
   }
 
   main {
