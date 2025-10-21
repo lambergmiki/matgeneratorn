@@ -102,7 +102,7 @@ cd matgeneratorn
 
 Then start the development environment with Docker Compose:
 ```
-docker compose -f compose.dev.yaml up --build -d
+docker compose -f docker-compose.yaml up --build -d
 ```
 ---
 

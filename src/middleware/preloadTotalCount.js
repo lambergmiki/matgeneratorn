@@ -43,13 +43,11 @@ let lastFetch = 0
  *
  * @returns {void}
  */
-export async function preloadTotalCount () {
+export async function preloadTotalCount() {
   const categorySkipLookup = {}
   const now = Date.now()
-  console.log('preload triggered...')
   // Use cached data if it's still valid.
   if (now - lastFetch < CACHE_TIME) {
-    console.log('Skip data still fresh (< 1 week), skipping fetch of totalCounts')
     return
   }
 
@@ -95,5 +93,4 @@ export async function preloadTotalCount () {
   }
   setCategorySkipLookup(categorySkipLookup)
   lastFetch = Date.now()
-  console.log('preloadTotalCount has finished')
 }

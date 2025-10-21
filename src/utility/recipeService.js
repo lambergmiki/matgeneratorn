@@ -35,7 +35,7 @@ const BASE_TAGS = {
  * @returns {Promise<Array<{ title: string, url: string, picture: string }>>} Array of processed,
  * user-friendly data.
  */
-export async function getRecipes (tag1, tag2, tag3) {
+export async function getRecipes(tag1, tag2, tag3) {
   try {
     if (!API_ENABLED) throw new Error('API disabled (simulated failure)')
 
@@ -50,14 +50,10 @@ export async function getRecipes (tag1, tag2, tag3) {
      */
     let weekdaySkips = BASE_TAGS[tag1]
     let weekendSkips = BASE_TAGS[tag2]
-    console.log('weekday skip values:', weekdaySkips)
-    console.log('weekend skip values:', weekendSkips)
 
     // THIS BLOCK HAS TO BE MUCH SIMPLER... HELP
     if (tag3) {
-      console.log('tag3 before reassigning to chosenFoodCategory:', tag3)
       const chosenFoodCategory = getCategorySkipLookup(tag3)
-      console.log('chosenFoodCategory:', chosenFoodCategory)
       weekdaySkips = chosenFoodCategory.weekdaySkips
       weekendSkips = chosenFoodCategory.weekendSkips
     }
@@ -69,8 +65,6 @@ export async function getRecipes (tag1, tag2, tag3) {
     // Randomly pick one skip from each array of values and destructure the one-item array.
     const [weekdayRandomSkip] = pickRandom(weekdaySkips, 1)
     const [weekendRandomSkip] = pickRandom(weekendSkips, 1)
-    console.log('🎲 weekdayRandomSkip:', weekdayRandomSkip) // debugger
-    console.log('🎲 weekendRandomSkip:', weekendRandomSkip) // debugger
 
     // Fire the two calls in parallel
     const [resWeekday, resWeekend] = await Promise.all([
@@ -96,7 +90,6 @@ export async function getRecipes (tag1, tag2, tag3) {
 
     // Merge recipes
     let merged = weekdayRecipes.concat(weekendRecipes)
-    console.log(merged.map(r => `${r.title} (${r.occasion})`))
 
     // Remove any duplicates
     merged = removeDuplicates(merged)

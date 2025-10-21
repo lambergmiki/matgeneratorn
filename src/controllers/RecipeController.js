@@ -17,7 +17,7 @@ export const recipeController = {
    * @param {object} res - Express response object.
    * @returns {Array} recipes -
    */
-  async renderRecipes (req, res) {
+  async renderRecipes(req, res) {
     const weekday = 'tdb:7007'
     const weekend = 'tdb:6985'
     const days = ['MÅN', 'TIS', 'ONS', 'TOR', 'FRE', 'LÖR', 'SÖN']
@@ -33,8 +33,6 @@ export const recipeController = {
       // if (recipes.length === 0) {
       //   throw new Error('No recipes generated.')
       // }
-
-      console.log('Sending recipe titles:', recipes.map(r => r.title)) // debugger
 
       return res.render('recipes/list', { recipes, days })
     } catch (err) {

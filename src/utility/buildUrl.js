@@ -12,9 +12,8 @@ const API_ENDPOINT = 'https://arla.se/cvi/facet/api/sv/recipes'
  * @param {number} [skip=0] - Skip value to be randomized. Defaults to 0 if not applied as argument.
  * @returns {URL} - Complete API URL with query parameters.
  */
-export function buildUrl (tagsArray, skip = 0) {
+export function buildUrl(tagsArray, skip = 0) {
   const tagsPartOfUrl = tagsArray.map(tag => `tags=${tag}`).join('&')
   const url = `${API_ENDPOINT}?skip=${skip}&${tagsPartOfUrl}`
-  console.log('built url:', url)
   return url
 }
