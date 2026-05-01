@@ -14,8 +14,6 @@
   <p align="center">
     A food recipe generator!
     <br />
-    <br />
-    <a href="https://matgeneratorn.se"><strong>Visit the Live App »</strong></a>
   </p>
 </div>
 
@@ -46,6 +44,10 @@
 </details>
 
 
+
+<!-- LATEST -->
+## Latest
+As of May 1st 2026 the project is offline and not being worked on due to other priorities. It is however, still possible to clone the repo and host it yourself.
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
